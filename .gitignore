@@ -1,0 +1,6 @@
+*.db
+*.pt
+*.svg
+__pycache__
+
+/fundamentals.csv
