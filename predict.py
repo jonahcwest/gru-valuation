@@ -1,14 +1,8 @@
 from argparse import ArgumentParser
 import sqlite3
 import torch
-from train import (
-    COLUMNS,
-    DB_FILE,
-    MODEL_STATE,
-    Data,
-    Model,
-    scale_up,
-)
+from lib import COLUMNS, FUNDAMENTALS_DB, scale_up
+from train import MODEL_STATE, Data, Model
 
 
 def main():
@@ -20,7 +14,7 @@ def main():
     model = Model(args.hidden_size)
     model.load_state_dict(torch.load(MODEL_STATE))
 
-    con = sqlite3.connect(DB_FILE)
+    con = sqlite3.connect(FUNDAMENTALS_DB)
     cur = con.cursor()
 
     result = cur.execute(
