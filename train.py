@@ -33,7 +33,6 @@ def main():
         collate_fn=collate_fn,
     )
     data_iter = iter(data_loader)
-    print("data loaded")
 
     model = Model(args.hidden_size)
     if torch.cuda.is_available():

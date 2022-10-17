@@ -2,7 +2,7 @@ import sqlite3
 import torch
 
 
-DB_FILE = "fundamentals.db"
+FUNDAMENTALS_DB = "fundamentals.db"
 MODEL_STATE = "model.pt"
 OPTIMIZER_STATE = "optimizer.pt"
 
@@ -57,7 +57,7 @@ class Data(torch.utils.data.Dataset):
         return scale_down(torch.tensor(financials))
 
     def __init__(self):
-        con = sqlite3.connect(DB_FILE)
+        con = sqlite3.connect(FUNDAMENTALS_DB)
         cur = con.cursor()
 
         result = cur.execute(
