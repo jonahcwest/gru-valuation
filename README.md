@@ -13,9 +13,9 @@ As financial data often exists in large numbers, the need to perform pre- and po
     def scale_down(x: torch.Tensor):
         return (x.abs() + 1).log() * x.sign()
 
-This function, when graphed, looks like a horizontally-stretched "S" shape:
+This function, when graphed, looks like a horizontally-stretched "S" shape, and is defined for all real numbers:
 
-TODO: picture
+<img src="scale_down_graph.png" alt="'S' shaped graph" width="400"/>
 
 The inverse of this function—to scale small outputs up—is applied to the outputs of the network, too.
 
