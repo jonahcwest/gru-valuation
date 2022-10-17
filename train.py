@@ -21,8 +21,6 @@ def main():
     parser.add_argument("--log-interval", required=True, type=int)
     parser.add_argument("--optimizer", required=True, type=str)
     parser.add_argument("--lr", required=True, type=float)
-    parser.add_argument("--lr-time", required=True, type=float)
-    parser.add_argument("--lr-target", required=True, type=float)
     args = parser.parse_args()
 
     data_loader = torch.utils.data.DataLoader(
@@ -45,8 +43,6 @@ def main():
     if os.path.isfile(OPTIMIZER_STATE):
         optimizer.load_state_dict(torch.load(OPTIMIZER_STATE))
 
-    lr_factor = (args.lr_target / args.lr) ** (1 / (args.lr_time * 60 * 60))
-
     start_time = time.time()
     elapsed = start_time
     loss_sum = 0
@@ -54,9 +50,6 @@ def main():
     sum_steps = 0
 
     while True:
-        for x in optimizer.param_groups:
-            x["lr"] = args.lr * lr_factor ** (time.time() - start_time)
-
         try:
             financials = next(data_iter)
         except StopIteration:
@@ -93,7 +86,6 @@ def main():
                             datetime.now().strftime("%H:%M:%S"),
                             avg_loss,
                             std_dev / avg_loss * 100,
-                            args.lr * lr_factor ** (time.time() - start_time),
                             sum_steps / args.log_interval,
                         ],
                     )

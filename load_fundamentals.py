@@ -2,21 +2,21 @@ import itertools
 import os
 import sqlite3
 
-from financials.train import DB_FILE
+from lib import FUNDAMENTALS_DB
 
 
-DATA_FILE = "fundamentals.csv"
+FUNDAMENTALS_CSV = "fundamentals.csv"
 
 DATA_START = 1
 COMMIT_INTERVAL = 300_000
 
 
 def main():
-    file = open(DATA_FILE)
+    file = open(FUNDAMENTALS_CSV)
 
-    if os.path.isfile(DB_FILE):
+    if os.path.isfile(FUNDAMENTALS_DB):
         raise ValueError("db exists")
-    con = sqlite3.connect("fundamentals.db")
+    con = sqlite3.connect(FUNDAMENTALS_DB)
     cur = con.cursor()
 
     columns = (
